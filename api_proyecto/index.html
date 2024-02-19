@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agregar - products.</title>
+  </head>
+  <body>
+    <form id="formularioProducto" >
+      <div>
+        <label for="product_name">Nombre del Producto:</label>
+        <input type="text" id="product_name" name="product_name" required />
+      </div>
+
+      <div>
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description" required></textarea>
+      </div>
+
+      <div>
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" required />
+      </div>
+
+      <div>
+        <label for="image_product">URL de la Imagen:</label>
+        <input type="text" id="image_product" name="image_product" />
+      </div>
+
+      <div>
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" required />
+      </div>
+
+      <button type="button" onclick="agregarProducto()">
+        Agregar Producto
+      </button>
+    </form>
+
+    <script>
+      function agregarProducto() {
+        // Obtener los valores del formulario
+        const product_name = document.getElementById("product_name").value;
+        const description = document.getElementById("description").value;
+        const price = document.getElementById("price").value;
+        const image_product = document.getElementById("image_product").value;
+        const stock = document.getElementById("stock").value;
+
+        // Construir el objeto de datos
+        const datosProducto = {
+          product_name: product_name,
+          description: description,
+          price: price,
+          image_product: image_product,
+          stock: stock,
+        };
+        // Realizar la solicitud POST al servidor
+        fetch("http://localhost/api_proyecto/products", {
+          // Reemplaza con la URL correcta de tu backend
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(datosProducto),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Respuesta del servidor:", data);
+            // Puedes realizar acciones adicionales después de agregar el producto.
+
+            product_name.value = "";
+            description.value = "";
+            price.value = "";
+            image_product.value = "";
+            stock.value = "";
+
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error al agregar el producto:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

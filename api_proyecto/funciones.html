@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrar - Products</title>
+  </head>
+  <body>
+    <div>
+      <h2>Lista de Productos</h2>
+      <ul id="listaProductos"></ul>
+    </div>
+
+    <script>
+      // Función para cargar la lista de productos al cargar la página
+      window.onload = function () {
+        // Obtener la lista de productos desde el servidor
+        fetch("http://localhost/api_proyecto/products")
+          .then((response) => response.json())
+          .then((data) => {
+            const listaProductos = document.getElementById("listaProductos");
+
+            // Crear elementos de lista para cada producto
+            data.forEach((producto) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = `${producto.product_name} - Precio: ${producto.price}`;
+
+              // Agregar botón de eliminar
+              const btnEliminar = document.createElement("button");
+              btnEliminar.textContent = "Eliminar";
+              btnEliminar.onclick = () => eliminarProducto(producto.product_id);
+              listItem.appendChild(btnEliminar);
+              // Agregar botón de actualizar (puedes implementar la lógica según tus necesidades)
+              const btnActualizar = document.createElement("button");
+              btnActualizar.textContent = "Actualizar";
+              btnActualizar.onclick = () => actualizarProducto(producto.product_id);
+              listItem.appendChild(btnActualizar);
+
+              // Agregar elemento de lista al contenedor
+              listaProductos.appendChild(listItem);
+            });
+          })
+          .catch((error) => {
+            console.error("Error al cargar la lista de productos:", error);
+          });
+      };
+
+      // Función para eliminar un producto
+      function eliminarProducto(productoId) {
+        fetch("http://localhost/api_proyecto/products", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ product_id: productoId }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Respuesta del servidor al eliminar:", data);
+            // Puedes realizar acciones adicionales después de eliminar el producto
+            // Por ejemplo, puedes volver a cargar la lista de productos después de eliminar
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error al eliminar el producto:", error);
+          });
+      }
+
+      // Función para actualizar un producto
+      function actualizarProducto(productoId) {
+        // Implementa la lógica de actualización según tus necesidades
+        console.log(`Actualizar producto con ID: ${productoId}`);
+      }
+    </script>
+  </body>
+</html>
