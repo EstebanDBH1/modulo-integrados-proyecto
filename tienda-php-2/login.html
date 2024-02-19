@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OFFBEAT</title>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="wrapper-all">
+        <header class="header">
+          <nav class="nav container">
+            <a href="/tienda-php-2/index.html" class="nav-link name-site">Offbeat.</a>
+
+            <a href="login.html" class="hi-link">Login</a>
+
+            <ul class="nav-links">
+              <li><a href="#">Inicio,</a></li>
+              <li><a href="#">Catálogo,</a></li>
+              <li><a href="#">Contacto</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <section class="login-admin-section container">
+          <div class="left-text-admin">
+            <h2 class="subtitle">My account</h2>
+            <p>Admin account</p>
+          </div>
+          <form action="autenticacion.php" class="form-admin" method="post">
+            <h2 class="subtitle">Login</h2>
+            <div class="co-inputs">
+              <label for="username">
+                <span>Username:</span>
+                <input type="text" id="username" name="username" required />
+              </label>
+
+              <label for="password">
+                <span>Password:</span>
+                <input type="password" id="password" name="password" required />
+              </label>
+            </div>
+
+            <hr />
+            <button type="submit" class="btn-submit">Login</button>
+          </form>
+        </section>
+      </div>
+    </div>
+    <!--script-->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
